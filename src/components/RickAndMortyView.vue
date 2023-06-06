@@ -3,8 +3,8 @@ import axios from 'axios';
 import { ref, watch } from 'vue';
 import Card from './Card.vue';
 
-const names = ref([]);
 const page = ref(1);
+const results = ref([]);
 
 watch(page, async () => {
   await fetchCharacters();
@@ -15,7 +15,7 @@ async function fetchCharacters() {
     const response = await axios.get(
       `https://rickandmortyapi.com/api/character/?page=${page.value}`
     );
-    names.value = response.data.results;
+    results.value = response.data.results;
     console.log(response.data.results);
   } catch (error) {
     console.error(error);
@@ -41,10 +41,13 @@ fetchCharacters();
   <div class="container">
     <div class="cards">
       <Card
-        v-for="name in names"
-        :key="name.id"
-        :name="name"
-        :results="results"
+        v-for="result in results"
+        :key="result.id"
+        :name="result.name"
+        :species="result.species"
+        :status="result.status"
+        :image="result.image"
+        :origin="result.origin.name"
       />
       <n-button type="primary">Primary</n-button>
     </div>
@@ -54,8 +57,6 @@ fetchCharacters();
 </template>
 
 <style scoped>
-/* Breaking Bad Styles */
-
 .container {
   background-color: rgb(27, 26, 26);
   padding: 30px;

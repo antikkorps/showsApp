@@ -1,20 +1,24 @@
 <script setup>
 import { defineProps } from 'vue';
 
-const { image, name, occupation, status } = defineProps([
-  'image',
+const { id, name, status, image, origin, species } = defineProps([
+  'id',
   'name',
-  'occupation',
   'status',
+  'image',
+  'origin',
+  'species',
 ]);
 </script>
 <template>
-  <n-card title="Card with Cover">
+  <n-card>
     <template #cover>
-      <img :src="results.image" :alt="results.name" class="card-image" />
+      <img :src="image" :alt="name" class="card-image" />
     </template>
-    <h3 class="card-title">{{ results.name }}</h3>
-    <p class="card-status">{{ results.status }}</p>
+    <h2 class="card-title">{{ name }}</h2>
+    <p class="card-status">Status: {{ status }}</p>
+    <p class="card-status">Origin of Character: {{ origin }}</p>
+    <p class="card-status">Species: {{ species }}</p>
   </n-card>
 </template>
 
